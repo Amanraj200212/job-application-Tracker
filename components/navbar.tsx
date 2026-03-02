@@ -3,8 +3,7 @@
 import { Briefcase } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./ui/button"
-import { getSession, signOut } from "@/lib/auth/auth"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel } from "./ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel } from "./ui/dropdown-menu"
 import { DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Avatar } from "./ui/avatar"
 import { AvatarFallback } from "./ui/avatar"
@@ -35,20 +34,24 @@ const Navbar = () => {
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Button variant="ghost">
-                    <Avatar>
+                  <Button 
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
+                    <Avatar className="h-8 w-8">
                       <AvatarFallback className="bg-primary text-white">
                         {session.user.name[0].toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+
+                <DropdownMenuContent className="w-56" align="end">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel>
-                      <div>
-                        <p>{session.user.name}</p>
-                        <p>{session.user.email}</p>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">{session.user.name}</p>
+                        <p className="text-sm leading-none text-muted-foreground ">{session.user.email}</p>
                       </div>
                     </DropdownMenuLabel>
                     
@@ -65,7 +68,7 @@ const Navbar = () => {
                   variant="ghost" 
                   className="text-gray-700 hover:text-black"
                 >
-                  Login In
+                  Log In
                 </Button>
               </Link>
               <Link href="/sign-up">
