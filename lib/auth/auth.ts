@@ -15,6 +15,15 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
+  
+  // make cache of session
+  session: {
+    cookieCache:{
+      enabled:true,
+      maxAge: 60 * 60,
+    },
+  },
+
   emailAndPassword: {
     enabled:true,
   },
