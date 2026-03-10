@@ -56,7 +56,7 @@ const CreateJobApplicationDialog = ({columnId, boardId} : CreateJobApplicationDi
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="outline" className="w-full mb-4 justify-start text-muted-foreground">
           <Plus className="mr-2 h-4 w-4" />
           Add Job

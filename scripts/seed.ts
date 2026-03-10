@@ -2,7 +2,7 @@ import connectDB from "@/lib/db";
 import { Board, Column, JobApplication } from "@/lib/model";
 
 
-const USER_ID = "69aab2c7b6263b03d94aa14a"
+const USER_ID = "69affe6c23fac88cbbdd428d"
 
 //Ai Genrate data
 const SAMPLE_JOBS = [
