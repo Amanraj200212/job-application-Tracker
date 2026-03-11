@@ -15,9 +15,11 @@ import { useState } from "react";
 interface jobApplicationCardProps{
   job: JobApplication;
   columns: Column[];
+  //this props get from attributes, listener from sortable job card in kanban board
+  dragHandleProps?: React.HTMLAttributes<HTMLElement>;
 }
 
-const JobApplicationCard = ({job, columns}: jobApplicationCardProps) => {
+const JobApplicationCard = ({job, columns, dragHandleProps}: jobApplicationCardProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
       company: job.company,
@@ -76,12 +78,12 @@ const JobApplicationCard = ({job, columns}: jobApplicationCardProps) => {
 
   return (
     <>
-    <Card className="cursor-pointer transition-shadow hover:shadow-lg bg-white shadow-sm">
+    <Card className="cursor-pointer transition-shadow hover:shadow-lg bg-white shadow-sm" {...dragHandleProps}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0" >
             <h3 className="font-semibold text-sm mb-1">
-              {job.position.toUpperCase()}
+              {job.position?.toUpperCase()}
             </h3>
             <p className="text-xs text-muted-foreground mb-2">
               {job.company}

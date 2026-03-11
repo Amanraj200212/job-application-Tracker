@@ -10,6 +10,7 @@
     "seed:jobs": "tsx --env-file=.env.local scripts/seed.ts"
   },
   "dependencies": {
+    "@dnd-kit/sortable": "^10.0.0",
     "better-auth": "^1.4.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

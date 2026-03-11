@@ -21,6 +21,7 @@ export function useBoard(intialBoard?: Board | null) {
     newOrder: number
   ) {
     
+    console.log(jobApplicationId,newColumnId,newOrder)
   }
 
   return {board,columns,error, moveJob}
