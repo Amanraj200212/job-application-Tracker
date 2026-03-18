@@ -71,6 +71,7 @@ const JobApplicationCard = ({job, columns, dragHandleProps}: jobApplicationCardP
       const result = await updateJobApplication(job._id, {
         columnId: newColumnId,
       })
+      console.log(result)
     } catch(err) {
       console.error("Failed to move job Application card",err)
     }
@@ -142,7 +143,10 @@ const JobApplicationCard = ({job, columns, dragHandleProps}: jobApplicationCardP
                   </>
                 )}
 
-                <DropdownMenuItem onClick={handleDelete} className="text-destructive">
+                <DropdownMenuItem 
+                  onClick={handleDelete} 
+                  className="text-destructive"
+                >
                   <Trash2 className="h-4 w-4 mr-2"/>
                   Delete
                 </DropdownMenuItem>

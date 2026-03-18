@@ -220,7 +220,7 @@ export async function updateJobApplication(
       const jobToShiftUp = otherJobInColumn.slice(oldPositionIndex, order);
 
       for(const job of jobToShiftUp) {
-        const newOrder = Math.max(0, jobApplication.order - 100);
+        const newOrder = Math.max(0, job.order - 100);
         await JobApplication.findByIdAndUpdate(job._id, {
           $set: {order: newOrder}
         });
@@ -262,6 +262,40 @@ export async function deleteJobApplication(id: string){
   });
 
   await JobApplication.deleteOne({_id: id});
+  revalidatePath("/dashboard");
+  return{success: true}
+}
+
+// for delete entire column
+export async function deleteColumn(columnId: string){
+  const session = await getSession();
+
+  if(!session?.user){
+    return {error: "UnAuthorized"}
+  }
+
+  // await connectDB();
+
+  // find Column for deleting process
+  const column = await Column.findById(columnId);
+  if(!column){
+    return { error: "Column not found"};
+  }
+
+  const board = await Board.findOne({
+    _id: column.boardId,
+    userId: session.user.id,
+  })
+
+  if(!board){
+    return {error: "unAuthorized"}
+  }
+
+  await Board.findByIdAndUpdate(column.boardId, {
+    $pull: {columns: columnId},
+  });
+
+  await Column.findByIdAndDelete(columnId);
   revalidatePath("/dashboard");
   return{success: true}
 }
