@@ -194,7 +194,7 @@ export async function updateJobApplication(
     });
 
   } else if(order !== undefined && order !==null) {
-    const otherJobInColumn = await jobApplication.find({
+    const otherJobInColumn = await JobApplication.find({
       columnId: currentColumnId,
       _id: {$ne: id},
     })

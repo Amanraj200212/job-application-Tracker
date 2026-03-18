@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 import CreateJobApplicationDialog from "./create-job-dialog";
 import JobApplicationCard from "./job-application-card";
 import { useBoard } from "@/lib/hooks/userBoards";
-import { closestCorners, DndContext, DragEndEvent, DragStartEvent, PointerSensor, useDroppable, useSensor, useSensors} from "@dnd-kit/core"
+import { closestCorners, DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useDroppable, useSensor, useSensors} from "@dnd-kit/core"
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities"
 import { useState } from "react";
@@ -242,6 +242,7 @@ const KanbanBoard = ({board, userId}: KanbanBoardProps) => {
     await moveJob(activeId,targetColumnId, newOrder)
   };
 
+  const activejob = sortedColumns.flatMap((col) => col.jobApplications || []).find((job) => job._id === activeDragId)
   return (
     <DndContext  
       sensors={sensors}
@@ -251,7 +252,7 @@ const KanbanBoard = ({board, userId}: KanbanBoardProps) => {
     >
       <div className="space-y-4">
         <div className="flex gap-4 overflow-x-auto pb-4">
-          {columns.map((col, key) => {
+          {sortedColumns.map((col, key) => {
             const config = COLUMN_CONFIG[key] || {
               color: "bg-gray-500",
               icon: <Calendar className="h-4 w-4"/>
@@ -268,6 +269,15 @@ const KanbanBoard = ({board, userId}: KanbanBoardProps) => {
           })}
         </div>
       </div>
+
+      {/* SETUP DragOverlay for smooth drag */}
+      <DragOverlay>
+        {activejob ? (
+          <div className="opacity-50">
+            <JobApplicationCard job={activejob} columns={columns}/>
+          </div>
+        ): null}
+      </DragOverlay>
     </DndContext>
   )
 }
