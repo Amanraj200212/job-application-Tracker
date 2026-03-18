@@ -8,6 +8,7 @@ import { signIn } from "@/lib/auth/auth-client"
 import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -87,6 +88,30 @@ const SignIn = () => {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
+
+            {/* 🔥 Google Sign In Button */}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full flex items-center gap-2"
+                onClick={() => signIn.social({ provider: "google" })}
+              >
+                <Image
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                    width={20}
+                    height={20}
+                  alt="google"
+                />
+                Continue with Google
+              </Button>
+
+              {/* Divider */}
+              <div className="flex items-center w-full">
+                <div className="flex-1 h-px bg-gray-300" />
+                <span className="px-2 text-sm text-gray-500">OR</span>
+                <div className="flex-1 h-px bg-gray-300" />
+              </div>
+
             <Button 
               type="submit" 
               className="w-full bg-primary hover:bg-primary/90"
@@ -95,7 +120,7 @@ const SignIn = () => {
              {loading ? "Login your account..." : "Sign In"}
             </Button>
             <p>
-              Don't have an account ? {" "}
+              {"Don't have an account"} ? {" "}
               <Link href="/sign-up" className="font-medium text-primary hover:underline" >Sign Up</Link>
             </p>
           </CardFooter>

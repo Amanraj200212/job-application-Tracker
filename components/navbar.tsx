@@ -5,11 +5,9 @@ import Link from "next/link"
 import { Button } from "./ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel } from "./ui/dropdown-menu"
 import { DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { Avatar } from "./ui/avatar"
-import { AvatarFallback } from "./ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import SignOutBtn from "./ui/sign-out-btn"
 import { useSession } from "@/lib/auth/auth-client"
-
 //server side component can be async but not client side comp.
 const Navbar = () => {
   const {data :session} = useSession();
@@ -39,9 +37,10 @@ const Navbar = () => {
                     className="relative h-8 w-8 rounded-full"
                   >
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-primary text-white">
-                        {session.user.name[0].toUpperCase()}
-                      </AvatarFallback>
+                      <AvatarImage src={session?.user?.image || " "} />
+                        <AvatarFallback className="bg-primary text-white">
+                          {session.user.name[0].toUpperCase()}
+                        </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
