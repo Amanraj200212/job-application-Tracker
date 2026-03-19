@@ -19,7 +19,7 @@ export const auth = betterAuth({
   }),
   
   // make cache of session
-  databaseHooks: {
+  session: {
     cookieCache:{
       enabled:true,
       maxAge: 60 * 60,
